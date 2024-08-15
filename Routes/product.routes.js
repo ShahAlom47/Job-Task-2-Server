@@ -1,10 +1,11 @@
 const express = require('express');
 const router= express.Router()
 
-const { getProductCategoryName } = require('../Controller/product.controller');
+const { getProductCategoryName, getProductBrandName } = require('../Controller/product.controller');
 
 
 router.get('/allProduct/categoryName',getProductCategoryName);
+router.get('/allProduct/brandName',getProductBrandName);
 
 
 
