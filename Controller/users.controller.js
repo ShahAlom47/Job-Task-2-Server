@@ -35,56 +35,7 @@ const addUser = async (req, res) => {
 };
 
 
-// User  Login 
 
-const login = async (req, res) => {
-
-  const { email, password } = req.body;
-  try {
-    const user = await usersCollection.findOne({ email: email });
-
-    if (!user) {
-      return res.send({ message: 'Invalid email' });
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch) {
-      return res.send({ message: 'Invalid  password' });
-    }
-    res.send({ message: 'Login successful', user });
-
-
-  } catch (error) {
-    res.sendStatus(500); // Internal server error
-  }
-
-
-
-}
-
-
-// check user login 
-const isLogin = async (req, res) => {
-  try {
-    const token = req.body.token;
-    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN);
-    const email = decoded.data;
-
-    const existingUser = await usersCollection.findOne({ email: email });
-
-    if (existingUser) {
-      const { password, ...userWithoutPassword } = existingUser;
-
-      res.send({ message: 'User is logged in', user: userWithoutPassword });
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (error) {
-    console.error('Error fetching user:', error);
-    res.sendStatus(500);
-  }
-}
 
 
 const updateUserData = async (req, res) => {
@@ -133,8 +84,7 @@ const updateUserProfilePhoto = async (req, res) => {
 
 module.exports = {
   addUser,
-  login,
-  isLogin,
+ 
   updateUserData,
   updateUserProfilePhoto,
 }

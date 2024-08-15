@@ -39,9 +39,11 @@ app.post('/jwt', async (req, res) => {
 
 // Routes
 const userRoutes = require('./Routes/users.routes');
+const productRoutes = require('./Routes/product.routes');
 
 
 app.use('/user', userRoutes);
+app.use('/product', productRoutes);
 
 
 
