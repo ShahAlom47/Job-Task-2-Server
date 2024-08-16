@@ -1,28 +1,25 @@
+const { ObjectId } = require("mongodb");
 const { getProductCollection } = require("../utils/AllDB_Collections/productCollection");
 
 
-const productCollection= getProductCollection();
+const productCollection = getProductCollection();
 
 
 // feature product for home page
 
+
 const getFeatureProduct = async (req, res) => {
     try {
-     
-      const products = await productCollection.find().limit(6).toArray();
-  
-    
-      return res.send(products); 
+
+        const products = await productCollection.find().limit(6).toArray();
+
+
+        return res.send(products);
     } catch (error) {
-      console.error(error);
-      return res.status(500).send('Something went wrong');
+        console.error(error);
+        return res.status(500).send('Something went wrong');
     }
-  };
-  
-  
-  
-
-
+};
 
 
 
@@ -30,11 +27,11 @@ const getFeatureProduct = async (req, res) => {
 const getProductCategoryName = async (req, res) => {
     try {
         const products = await productCollection.find({}, { projection: { category: 1, _id: 0 } }).toArray();
-        
+
         const categories = products.map(product => product.category);
-        
+
         const uniqueCategories = [...new Set(categories)];
-      
+
 
         return res.send(uniqueCategories);
     } catch (error) {
@@ -45,11 +42,11 @@ const getProductCategoryName = async (req, res) => {
 const getProductBrandName = async (req, res) => {
     try {
         const products = await productCollection.find({}, { projection: { brand: 1, _id: 0 } }).toArray();
-        
+
         const categories = products.map(product => product.brand);
-        
+
         const uniqueBrands = [...new Set(categories)];
-   
+
 
         return res.send(uniqueBrands);
     } catch (error) {
@@ -72,7 +69,7 @@ const getAllProduct = async (req, res) => {
             perPage = 9
         } = req.query;
 
-        console.log(category,brand,sort,minPrice,maxPrice,search);
+        console.log(category, brand, sort, minPrice, maxPrice, search);
 
         const skip = (page - 1) * perPage;
         const limit = parseInt(perPage);
@@ -96,7 +93,7 @@ const getAllProduct = async (req, res) => {
             sortOptions.createdAt = -1; // default sort
         }
 
-        
+
 
         const totalProducts = await productCollection.countDocuments(filters);
         const products = await productCollection.find(filters)
@@ -114,9 +111,23 @@ const getAllProduct = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while fetching products' });
-    } 
+    }
 };
 
+
+//  product details Api
+
+const getProductDetails = async (req, res) => {
+    const id = req.params.id
+    try {
+        const result = await productCollection.findOne({ _id: new ObjectId(id) })
+        return res.send(result)
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while fetching products' });
+    }
+}
 
 const getAdminAllProduct = async (req, res) => {
 
@@ -124,7 +135,7 @@ const getAdminAllProduct = async (req, res) => {
 
     try {
         const response = await productCollection.find()
-            
+
             .skip((page - 1) * limit)
             .limit(parseInt(limit))
             .toArray();
@@ -141,7 +152,7 @@ const getAdminAllProduct = async (req, res) => {
         return res.status(500).send('Server Error');
     }
 };
-  
+
 
 module.exports = {
     getFeatureProduct,
@@ -149,5 +160,5 @@ module.exports = {
     getProductBrandName,
     getAllProduct,
     getAdminAllProduct,
-
+    getProductDetails,
 }
