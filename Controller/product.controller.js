@@ -69,7 +69,7 @@ const getAllProduct = async (req, res) => {
             perPage = 9
         } = req.query;
 
-        console.log(category, brand, sort, minPrice, maxPrice, search);
+       
 
         const skip = (page - 1) * perPage;
         const limit = parseInt(perPage);
@@ -83,10 +83,10 @@ const getAllProduct = async (req, res) => {
         if (search) filters.productName = { $regex: search, $options: 'i' };
 
         const sortOptions = {};
-        if (sort === 'priceAsc') {
-            sortOptions.price = 1;
-        } else if (sort === 'priceDesc') {
+        if (sort === 'High--Low') {
             sortOptions.price = -1;
+        } else if (sort === 'Low--High') {
+            sortOptions.price = 1;
         } else if (sort === 'ratings') {
             sortOptions.ratings = -1;
         } else {
