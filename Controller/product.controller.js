@@ -93,11 +93,36 @@ const getAllProduct = async (req, res) => {
     } 
 };
 
+
+const getAdminAllProduct = async (req, res) => {
+
+    const { page = 1, limit = 8 } = req.query;
+
+    try {
+        const response = await productCollection.find()
+            
+            .skip((page - 1) * limit)
+            .limit(parseInt(limit))
+            .toArray();
+
+        const total = await productCollection.countDocuments();
+
+        return res.send({
+            data: response,
+            totalPages: Math.ceil(total / limit),
+            currentPage: parseInt(page)
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send('Server Error');
+    }
+};
   
 
 module.exports = {
     getProductCategoryName,
     getProductBrandName,
     getAllProduct,
+    getAdminAllProduct,
 
 }
