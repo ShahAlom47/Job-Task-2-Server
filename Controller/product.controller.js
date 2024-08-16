@@ -3,6 +3,30 @@ const { getProductCollection } = require("../utils/AllDB_Collections/productColl
 
 const productCollection= getProductCollection();
 
+
+// feature product for home page
+
+const getFeatureProduct = async (req, res) => {
+    try {
+     
+      const products = await productCollection.find().limit(6).toArray();
+  
+    
+      return res.send(products); 
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send('Something went wrong');
+    }
+  };
+  
+  
+  
+
+
+
+
+
+
 const getProductCategoryName = async (req, res) => {
     try {
         const products = await productCollection.find({}, { projection: { category: 1, _id: 0 } }).toArray();
@@ -120,6 +144,7 @@ const getAdminAllProduct = async (req, res) => {
   
 
 module.exports = {
+    getFeatureProduct,
     getProductCategoryName,
     getProductBrandName,
     getAllProduct,
