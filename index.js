@@ -17,7 +17,7 @@ const server = http.createServer(app);
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: ["http://localhost:5173", "http://localhost:5174",'https://job-task-2-175ee.web.app'],
     credentials: true,
 }));
 app.use(cookieParser());

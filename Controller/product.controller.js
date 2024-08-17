@@ -81,6 +81,8 @@ const getAllProduct = async (req, res) => {
         if (minPrice) filters.price.$gte = parseInt(minPrice);
         if (maxPrice) filters.price.$lte = parseInt(maxPrice);
         if (search) filters.productName = { $regex: search, $options: 'i' };
+      
+      
 
         const sortOptions = {};
         if (sort === 'High--Low') {

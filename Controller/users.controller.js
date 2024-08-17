@@ -14,7 +14,6 @@ const usersCollection = getUserCollection()
 
 const addUser = async (req, res) => {
   const userData = req.body;
-  console.log(userData);
   try {
    
     const existingUser = await usersCollection.findOne({ email: userData.email });
@@ -78,7 +77,6 @@ const updateUserProfilePhoto = async (req, res) => {
   const result=await usersCollection.updateOne(query,updateData)
   return res.send(result)
 
-  console.log(email,photoURL);
 
 }
 
