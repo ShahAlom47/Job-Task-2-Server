@@ -19,5 +19,17 @@ Before starting, make sure you have the following tools installed:
 - **MongoDB**: [Install MongoDB](https://www.mongodb.com/try/download/community)
 - **Git**: [Download Here](https://git-scm.com/)
 
+## Environment Variables
+
+To run the project successfully, you'll need to set up a `.env` file with the following values. These environment variables are critical for connecting to your database and securing your API requests.
+
+### Create a `.env` file in the root directory of your project and add the following:
+
+```plaintext
+JWT_SECRET=your_jwt_secret_key_here
+DB_USER=your_database_user_here
+DB_PASS=your_database_password_here
+```
+
 ## Client Side Code
 [Z-Zone](https://github.com/ShahAlom47/Job-Task-2-Client)
