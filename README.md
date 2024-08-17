@@ -19,5 +19,5 @@ Before starting, make sure you have the following tools installed:
 - **MongoDB**: [Install MongoDB](https://www.mongodb.com/try/download/community)
 - **Git**: [Download Here](https://git-scm.com/)
 
-## Project Structure
+## Client Side - [Z-Zone] (https://github.com/ShahAlom47/Job-Task-2-Client)
 
