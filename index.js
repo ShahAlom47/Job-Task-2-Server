@@ -32,7 +32,7 @@ app.post('/jwt', async (req, res) => {
 
   const token = jwt.sign({
     data: userInfo
-  }, process.env.ACCESS_TOKEN, { expiresIn: '1h' });
+  }, process.env.JWT_SECRET, { expiresIn: '1h' });
   res.send({ token })
 
 })

@@ -89,10 +89,10 @@ const getAllProduct = async (req, res) => {
             sortOptions.price = -1;
         } else if (sort === 'Low--High') {
             sortOptions.price = 1;
-        } else if (sort === 'ratings') {
+        } else if (sort === 'Top Ratings') {
             sortOptions.ratings = -1;
         } else {
-            sortOptions.createdAt = -1; // default sort
+            sortOptions.createdAt = -1; 
         }
 
 
